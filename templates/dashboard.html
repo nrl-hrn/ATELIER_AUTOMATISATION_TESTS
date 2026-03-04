@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>API Monitoring Dashboard</title>
+</head>
+<body>
+
+<h1>API Monitoring Dashboard</h1>
+
+<h2>Status:
+{% if status == "OK" %}
+    <span style="color:green;">OK</span>
+{% else %}
+    <span style="color:red;">FAIL</span>
+{% endif %}
+</h2>
+
+<p><strong>Error Rate:</strong> {{ error_rate }}</p>
+<p><strong>Average Latency:</strong> {{ avg_latency }} sec</p>
+<p><strong>P95 Latency:</strong> {{ p95_latency }} sec</p>
+
+<h3>Last 50 Runs</h3>
+
+<table border="1">
+<tr>
+    <th>Timestamp</th>
+    <th>Success</th>
+    <th>Latency</th>
+</tr>
+
+{% for r in results %}
+<tr>
+    <td>{{ r[0] }}</td>
+    <td>{% if r[1] == 1 %}✅{% else %}❌{% endif %}</td>
+    <td>{{ r[2] }}</td>
+</tr>
+{% endfor %}
+
+</table>
+
+</body>
+</html>
